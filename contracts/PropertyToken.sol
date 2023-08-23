@@ -43,7 +43,7 @@ contract MyToken is ERC20, Ownable, ERC20Permit, IERC721Receiver {
         TotalAmountOfTokensForNft[_tokenId] = _valueToken;
         approve(address(this), _valueToken);
         listed[_tokenId] = true;
-        oneTokenValue = 0.02 ether;
+        oneTokenValue = 0.02 ether; // for the profit of the owner
     }
 
     function buyShare(uint256 _tokenId, uint256 _share) external payable {
