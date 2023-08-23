@@ -13,14 +13,14 @@ contract MyToken is ERC20, Ownable, ERC20Permit, IERC721Receiver {
     IERC721 public collection;
     uint256 public oneTokenValue = 0.01 ether;
     uint256 public remainingPercentage = 100;
-    mapping(address=> uint256) public stakeHoldersAndTheirPercentages;
-    mapping (address=>uint256) public stockHoldersOfProperty;
+    mapping(address=> uint256) public stakeHoldersAndTheirPercentages; // address -> selling percentage 
+    mapping (address=>uint256) public stockHoldersOfProperty ;// address -> tokenId; 
     mapping (uint256=>bool) public listed;
-    mapping(uint256=>uint256) public TotalAmountOfTokensForNft;
+    mapping(uint256=>uint256) public TotalAmountOfTokensForNft; // tokenId -> total supply
     bool public canRedeem = false;
-    mapping(address => uint256) public shareholderShareSellingPrice;
+    mapping(address => uint256) public shareholderShareSellingPrice; // address of shareholder->price
     uint256 public sharers;
-    mapping(uint256=>mapping(uint256=>address)) PropertySharers;
+    mapping(uint256=>mapping(uint256=>address)) PropertySharers; // sharers -> tokenId -> address
 
     constructor(address _collection) ERC20("MyToken", "MTK") ERC20Permit("MyToken") {
         collection = IERC721(_collection);
@@ -43,6 +43,7 @@ contract MyToken is ERC20, Ownable, ERC20Permit, IERC721Receiver {
         TotalAmountOfTokensForNft[_tokenId] = _valueToken;
         approve(address(this), _valueToken);
         listed[_tokenId] = true;
+        oneTokenValue = 0.02 ether;
     }
 
     function buyShare(uint256 _tokenId, uint256 _share) external payable {
